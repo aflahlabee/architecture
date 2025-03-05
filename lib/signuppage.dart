@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class SignUpPage extends StatefulWidget {
   @override
@@ -11,7 +13,7 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _phoneController = TextEditingController();
   bool _isPasswordVisible = false;
 
-  void _signUp() {
+  void _signUp() async {
     String email = _emailController.text.trim();
     String password = _passwordController.text.trim();
     String phone = _phoneController.text.trim();
@@ -36,12 +38,20 @@ class _SignUpPageState extends State<SignUpPage> {
       return;
     }
 
+    var box = await Hive.openBox('userBox');
+    if (box.containsKey(email)) {
+      _showPopup("User already exists. Please login.");
+      return;
+    }
+
+    await box.put(email, {'password': password, 'phone': phone});
     _showPopup("Successfully created your account");
   }
 
   bool _isValidEmail(String email) {
-    return RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}\$').hasMatch(email);
-  }
+  return RegExp(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$').hasMatch(email);
+}
+
 
   bool _isValidPassword(String password) {
     return password.length >= 8 &&
@@ -51,9 +61,10 @@ class _SignUpPageState extends State<SignUpPage> {
         RegExp(r'(?=.*[@\$!%*?&])').hasMatch(password);
   }
 
-  bool _isValidPhone(String phone) {
-    return RegExp(r'^[0-9]{10}\$').hasMatch(phone);
-  }
+ bool _isValidPhone(String phone) {
+  return RegExp(r'^[0-9]{10}$').hasMatch(phone);
+}
+
 
   void _showPopup(String message) {
     showDialog(
