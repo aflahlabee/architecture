@@ -1,4 +1,5 @@
-import 'package:architecture_app/whichonepage.dart';
+import 'package:architecture_app/Cleint/cleintloginpage.dart';
+import 'package:architecture_app/PM/pm_login.dart';
 import 'package:flutter/material.dart';
 import 'package:architecture_app/loginandsignup/loginpage.dart';
 import 'package:architecture_app/Staff/staffloginpage.dart';
@@ -89,7 +90,9 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                   SizedBox(height: 20),
                   _buildRoleButton(context, 'Head Architect', LoginPage()),
-                  _buildRoleButton(context, 'Other', WhichOnePage()),
+                  _buildRoleButton(context, 'Project Manager', PMLoginPage()),
+                  _buildRoleButton(context, 'Client', ClientLoginPage()),
+                  _buildRoleButton(context, 'Staff', StaffLoginPage()),
                 ],
               ),
             );

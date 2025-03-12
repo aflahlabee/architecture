@@ -1,3 +1,5 @@
+import 'package:architecture_app/PM/PMListPage.dart';
+import 'package:architecture_app/PM/pm_registion.dart';
 import 'package:architecture_app/head/cleintregistrion.dart';
 import 'package:architecture_app/head/staffregistrion.dart';
 import 'package:architecture_app/loginandsignup/loginpage.dart';
@@ -5,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lottie/lottie.dart';
-
-
 
 class MyApp extends StatelessWidget {
   @override
@@ -129,75 +129,112 @@ class _HeadArchitectPageState extends State<HeadArchitectPage> {
                 ),
               ),
               SizedBox(height: 20),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ClientRegistrationPage()),
+                  );
+                },
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 50,
+                    ),
+                    SizedBox(
+                      height: 150,
+                      width: 150,
+                      child: Card(
+                        color: Colors.white.withOpacity(0.8),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        elevation: 4,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(Icons.group, size: 50, color: Colors.blue),
+                            SizedBox(height: 10),
+                            Text(
+                              "Add Client",
+                              style: TextStyle(
+                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => StaffRegistrationPage()),
+                        );
+                      },
+                      child: SizedBox(
+                        height: 150,
+                        width: 150,
+                        child: Card(
+                          color: Colors.white.withOpacity(0.8),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15)),
+                          elevation: 0,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.group, size: 50, color: Colors.blue),
+                              SizedBox(height: 10),
+                              Text(
+                                "Add Staff",
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),SizedBox(
+                      width: 20,
+                    ), 
+                  ],
+                ),
+              ),
+              InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => PMListPage()),
+                        );
+                      },
+                      child: SizedBox(
+                        height: 150,
+                        width: 150,
+                        child: Card(
+                          color: Colors.white.withOpacity(0.8),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15)),
+                          elevation: 0,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.group, size: 50, color: Colors.blue),
+                              SizedBox(height: 10),
+                              Text(
+                                "Add Project manager",
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
 
-              // Expanded(
-              //   child: Padding(
-              //     padding: const EdgeInsets.symmetric(horizontal: 20),
-              //     child: GridView.count(
-              //       crossAxisCount: 2,
-              //       crossAxisSpacing: 10,
-              //       mainAxisSpacing: 10,
-              //       children: [
-              //         _buildMenuCard(Icons.people, "Add Client", "Client"),
-              //         _buildMenuCard(Icons.group, "Add Staff", "Staff"),
-              //       ],
-              //     ),
-              //   ),
-              // ),
-InkWell(
-      onTap: () { Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) =>ClientRegistrationPage ()),
-  );},
-      child: Row(
-        children: [SizedBox(width: 50,),
-          SizedBox(height: 150,width: 150,
-            child: Card(
-              color: Colors.white.withOpacity(0.8),
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-              elevation: 4,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.group, size: 50, color: Colors.blue),
-                  SizedBox(height: 10),
-                  Text(
-                    "Add Client",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-            ),
-          ),SizedBox(width: 20,)
-,          InkWell(
-      onTap: () { Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) =>StaffRegistrationPage ()),
-  );},
-  
-      child: SizedBox(height: 150,width: 150,
-        child: Card(
-          color: Colors.white.withOpacity(0.8),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
-          elevation: 0,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(Icons.group, size: 50, color: Colors.blue),
-              SizedBox(height: 10),
-              Text(
-                "Add Staff",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ),
-        ],
-      ),
-    ),
-           
               Padding(
                 padding: const EdgeInsets.only(bottom: 20),
                 child: ElevatedButton.icon(
@@ -219,6 +256,4 @@ InkWell(
       ),
     );
   }
-
-  
 }

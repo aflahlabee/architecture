@@ -1,49 +1,7 @@
-import 'package:architecture_app/head/headhomepage.dart';
-import 'package:architecture_app/loginandsignup/signuppage.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:lottie/lottie.dart';
-
-
-
-
-class SplashScreen extends StatefulWidget {
-  @override
-  _SplashScreenState createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    _checkLoginStatus();
-  }
-
-  Future<void> _checkLoginStatus() async {
-    var box = Hive.box('loginBox');
-    bool isLoggedIn = box.get('isLoggedIn', defaultValue: false);
-
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => isLoggedIn ? HeadArchitectPage() : LoginPage(),
-        ),
-      );
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.blue.shade900,
-      body: Center(
-        child: Lottie.asset('assets/loading_animation.json', width: 200, height: 200),
-      ),
-    );
-  }
-}
+import 'package:architecture_app/head/headhomepage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -55,34 +13,34 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
   bool _obscureText = true;
 
- void _validateAndLogin() async {
-  String email = emailController.text.trim();
-  String password = passwordController.text.trim();
-  
-  var box = await Hive.openBox('userBox'); // Use 'userBox' instead of 'loginBox'
+  // Define permanent login credentials
+  final Map<String, String> permanentUsers = {
+    "admin1@example.com": "password123",
+    "admin2@example.com": "admin456"
+  };
 
-  if (email.isEmpty || password.isEmpty) {
-    _showErrorDialog("Please fill in all fields");
-    return;
-  }
+  void _validateAndLogin() async {
+    String email = emailController.text.trim();
+    String password = passwordController.text.trim();
 
-  if (!box.containsKey(email)) {
-    _showErrorDialog("Account not found! Please sign up.");
-    return;
-  }
+    if (email.isEmpty || password.isEmpty) {
+      _showErrorDialog("Please fill in all fields");
+      return;
+    }
 
-  var userData = box.get(email);
-  if (userData['password'] == password) {
+    if (!permanentUsers.containsKey(email) || permanentUsers[email] != password) {
+      _showErrorDialog("Invalid email or password!");
+      return;
+    }
+
+    var box = await Hive.openBox('loginBox');
     await box.put('isLoggedIn', true);
+
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => HeadArchitectPage()),
     );
-  } else {
-    _showErrorDialog("Invalid email or password!");
   }
-}
-
 
   void _showErrorDialog(String message) {
     showDialog(
@@ -165,13 +123,6 @@ class _LoginPageState extends State<LoginPage> {
                               style: TextStyle(fontSize: 18, color: Colors.white),
                             ),
                           ),
-                          TextButton(
-                            onPressed: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => SignUpPage()),
-                            ),
-                            child: Text("Don't have an account? Sign Up", style: TextStyle(color: Colors.blue)),
-                          )
                         ],
                       ),
                     ),
