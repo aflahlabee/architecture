@@ -1,7 +1,7 @@
 import 'package:architecture_app/WelcomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'loginpage.dart';
+import 'loginandsignup/loginpage.dart';
 
 class staffandcleintwelcompage extends StatefulWidget {
   final String userType; 

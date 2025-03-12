@@ -1,6 +1,7 @@
+import 'package:architecture_app/whichonepage.dart';
 import 'package:flutter/material.dart';
-import 'package:architecture_app/loginpage.dart';
-import 'package:architecture_app/staffandcleintloginpage.dart';
+import 'package:architecture_app/loginandsignup/loginpage.dart';
+import 'package:architecture_app/Staff/staffloginpage.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -88,7 +89,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   ),
                   SizedBox(height: 20),
                   _buildRoleButton(context, 'Head Architect', LoginPage()),
-                  _buildRoleButton(context, 'Other', StaffLoginPage()),
+                  _buildRoleButton(context, 'Other', WhichOnePage()),
                 ],
               ),
             );

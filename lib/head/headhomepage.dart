@@ -1,6 +1,6 @@
 import 'package:architecture_app/head/cleintregistrion.dart';
 import 'package:architecture_app/head/staffregistrion.dart';
-import 'package:architecture_app/loginpage.dart';
+import 'package:architecture_app/loginandsignup/loginpage.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
